@@ -33,7 +33,15 @@ def your_info():
         else:
             return "you did not reach your savings goal"
 
-@app.route('/your_stats')
+@app.route('/your_budget',  methods = ['GET','POST'])
 def your_stats():
-    return render_template('viewer_stats.html')
-    
+    if request.method == 'GET':
+       return render_template('viewer_budget.html')
+    else:
+        food_budget = int(request.form['food_budget'])
+        clothing_budget = int(request.form['clothing_budget'])
+        entertainment_budget = int(request.form['entertainment_budget'])
+        total_budget = (food_budget + clothing_budget + entertainment_budget)
+        food_percent = food_budget / total_budget
+        clothing_percent = clothing_budget / total_budget
+        entertainment_percent = entertainment_budget / total_budget
