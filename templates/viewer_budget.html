@@ -42,6 +42,14 @@
             <input type="number" name="clothing_budget" value=""><br>
             <label for="Entertainment"> Entertainment </label>
             <input type="number" name="entertainment_budget" value=""><br>
+            <label for="tuition"> Tuition:</label>
+            <input type="number" name="tuition_budget" value=""><br>
+            <label for="Transportation"> Transportation</label>
+            <input type="number" name="transportation_budget" value=""><br>
+            <label for="rent"> Rent </label>
+            <input type="number" name="rent_budget" value=""><br>
+            <label for="Other"> Other </label>
+            <input type="number" name="other_budget" value=""><br>
             <input type="submit" value="Submit">
         </form> 
 </style>
@@ -114,7 +122,7 @@ Highcharts.chart('container', {
     },
 
     title: {
-        text: 'Pie point CSS'
+        text: 'Your Monthly Expenditures!'
     },
 
     xAxis: {
@@ -129,10 +137,10 @@ Highcharts.chart('container', {
             ['Food', {{food_budget}}, false],
             ['Clothes', {{clothing_budget}}, false],
             ['Entertainment', {{entertainment_budget}}, false],
-            // ['Plums', 129.2, false],
-            // ['Bananas', 144.0, false],
-            // ['Peaches', 176.0, false],
-            // ['Prunes', 135.6, true, true],
+            ['Tuition', {{tuition_budget}}, false],
+            ['Transportation', {{transportation_budget}}, false],
+            ['Rent', {{rent_budget}}, false],
+            ['Other', {{other_budget}}, true, true],
             // ['Avocados', 148.5, false]
         ],
         showInLegend: true

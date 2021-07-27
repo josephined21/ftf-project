@@ -60,6 +60,21 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
+    {% if session %}
+      <p>You are logged in as {{session['username']}} <a href="/logout">Logout</a> </p>
+      {% else %}
+      <h2>Log in</h2>
+        <div>
+            <form action="/login" method="POST">
+                <label for="name">Name</label>
+                <input type="text" name="username">
+                <label for="password">Password</label>
+                <input type="password" name="password">
+                <input type="submit" value="Log In">
+            </form>
+            <p>No account? <a href="/signup">Sign up.</a></p>
+        </div>
+        {% endif %}
             <!-- ,<right><h1>Becoming financially secure doesn't require a green thumb</h1></right>
             <br><br><br><br><br><br><br><br><br><br><br><br>
             <br><br><br><br><br><br><br><br><br><br><br><br>

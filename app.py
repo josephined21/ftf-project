@@ -4,12 +4,19 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask import redirect
-
+from flask import session, url_for
+from flask_pymongo import PyMongo
 
 # -- Initialization section --
 app = Flask(__name__)
+app.secret_key = '_5#y2L"F4Q8z\n\xec]/'
 
-
+# name of database
+app.config['MONGO_DBNAME'] = 'login'
+# URI of database
+#app.config['MONGO_URI'] = 'mongodb+srv://admin:9dpPJg9sr2ssPZY@cluster0.pmjhw.mongodb.net/login?retryWrites=true&w=majority'
+app.config['MONGO_URI'] = 'mongodb+srv://admin:9dpPJg9sr2ssPZY@cluster0.dbc3e.mongodb.net/login?retryWrites=true&w=majority'
+mongo = PyMongo(app)
 # -- Routes section --
 @app.route('/')
 @app.route('/index')
@@ -51,8 +58,51 @@ def your_stats():
         food_budget = int(request.form['food_budget'])
         clothing_budget = int(request.form['clothing_budget'])
         entertainment_budget = int(request.form['entertainment_budget'])
-        total_budget = (food_budget + clothing_budget + entertainment_budget)
+        tuition_budget = int(request.form['tuition_budget'])
+        transportation_budget = int(request.form['transportation_budget'])
+        rent_budget = int(request.form['rent_budget'])
+        other_budget = int(request.form['other_budget'])
+        #total_budget = (food_budget + clothing_budget + entertainment_budget)
         # food_percent = food_budget / total_budget
         # clothing_percent = clothing_budget / total_budget
         # entertainment_percent = entertainment_budget / total_budget
-        return render_template( 'viewer_budget.html', food_budget = food_budget, clothing_budget = clothing_budget, entertainment_budget = entertainment_budget)
+        return render_template( 'viewer_budget.html', food_budget = food_budget, clothing_budget = clothing_budget, entertainment_budget = entertainment_budget, tuition_budget = tuition_budget, transportation_budget = transportation_budget, rent_budget = rent_budget, other_budget = other_budget)
+
+@app.route('/signup', methods = ['GET','POST'])
+def signup():
+    # Are they posting with the form?
+    if request.method == 'POST':
+        # Connect to database
+        users = mongo.db.users
+        # Do something with the database - Does anyone have this name?
+        existing_user = users.find_one({'name': request.form['username']})
+        # Does user not exist? Add to the database!
+        if existing_user is None:
+            # Add the user to the database
+            users.insert({'name': request.form['username'], 'password': request.form['password']})
+            # Make a session for the user
+            session['username'] = request.form['username']
+            return render_template('index.html')
+        return 'The username already exists'
+    return render_template('signups.html')
+@app.route('/login', methods = ['GET','POST'])  
+def login():
+    # Connect to the database
+    users = mongo.db.users
+    # Get the login for the user!
+    login_user = users.find_one({'name': request.form['username']})
+    # Check that the password matches
+    if login_user:
+        # Check does the password they put in match the password in the database
+        if request.form['password'] == login_user['password']:
+            # start a session
+            session['username'] = request.form['username']
+            #return redirect(url_for('index'))
+            return render_template("index.html")
+    # Password or username incorrect?
+    return 'Invalid username/password combination'
+# LOGOUT ROUTE
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')
