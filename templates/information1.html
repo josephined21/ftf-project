@@ -1,5 +1,6 @@
 <html>
 
+
 <head>
     <title>$ Quiz</title>
     <link rel="stylesheet" href="../static/css/style.css">
@@ -78,5 +79,25 @@
     </style> -->
 
 </body>
+
+
+    <head>
+        <title>$ Quiz</title>
+    </head>
+    <body>
+        <form method="post" action="/your_info">
+            <label for="name">Name:</label>
+            <input type="name" name="user_name" value=""><br>
+            <label for="goal_amount"> Savings for end of month:</label>
+            <input type="number" name="goal_amount" value=""><br>
+            <label for="monthly_expenses"> Monthly Expenses:</label>
+            <input type="number" name="monthly_expenses" value=""><br>
+            <label for="pay_per_hour"> Pay per hour</label>
+            <input type="number" name="pay_per_hour" value=""><br>
+            <label for="hours_worked"> Hours worked (per week)</label>
+            <input type="number" name="hours_worked" value=""><br>
+            <input type="submit" value="Submit">
+        </form>
+    </body>
 
 </html>
