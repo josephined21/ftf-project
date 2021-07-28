@@ -103,7 +103,7 @@ def your_info():
             #(f"you did not reach your savings goal, you need {need_more} more dollars to reach your goal")
 
 @app.route('/your_budget',  methods = ['GET','POST'])
-def your_stats():
+def your_budget():
     if request.method == 'GET':
        return render_template('viewer_budget.html')
     else:
