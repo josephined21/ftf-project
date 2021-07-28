@@ -3,14 +3,9 @@
 from flask import Flask
 from flask import render_template
 from flask import request
-
 from flask_pymongo import PyMongo
 from flask import redirect
 from flask import session, url_for
-
-from flask import redirect
-
-
 
 # -- Initialization section --
 app = Flask(__name__)
@@ -24,9 +19,7 @@ mongo = PyMongo(app)
 @app.route('/')
 @app.route('/index')
 def index():
-    #return render_template('information1.html')
     return render_template('index.html')
-
 
 @app.route('/signup', methods = ['GET','POST'])
 def signup():
@@ -69,24 +62,25 @@ def logout():
     session.clear()
     return redirect('/')
 
+@app.route('/login_button')
+def login_button():
+    return render_template ('login_copy.html')
 
+@app.route('/about_us')
+def about_us():
+   return render_template ('about_us.html')
 
 @app.route('/your_info', methods = ['GET','POST'])
 def your_info():
     if request.method == 'GET':
        return render_template("information1.html")
     else:
-
         #name = request.form['user_name']
         #date = request.form['date']
-
-        name = request.form['user_name']
-
         goal_amount = int(request.form['goal_amount'])
         monthly_expenses = int(request.form['monthly_expenses'])
         pay_per_hour = int(request.form['pay_per_hour'])
         hours_worked = int(request.form['hours_worked'])
-
         add_income = int(request.form['add_income'])
         add_expenses = int(request.form['add_expenses'])
         savings = ((((pay_per_hour*hours_worked)*4) + add_income) - (monthly_expenses + add_expenses))
@@ -107,13 +101,41 @@ def your_budget():
     if request.method == 'GET':
        return render_template('viewer_budget.html')
     else:
-        food_budget = int(request.form['food_budget'])
-        clothing_budget = int(request.form['clothing_budget'])
-        entertainment_budget = int(request.form['entertainment_budget'])
-        tuition_budget = int(request.form['tuition_budget'])
-        transportation_budget = int(request.form['transportation_budget'])
-        rent_budget = int(request.form['rent_budget'])
-        other_budget = int(request.form['other_budget'])
+        if request.form['food_budget'] == "":
+            food_budget = 0
+        else: 
+            food_budget = int(request.form['food_budget'])
+
+        if request.form['clothing_budget'] == "":
+            clothing_budget = 0
+        else: 
+            clothing_budget = int(request.form['clothing_budget'])
+
+        if request.form['entertainment_budget'] == "":
+            entertainment_budget = 0
+        else: 
+            entertainment_budget = int(request.form['entertainment_budget'])
+
+        if request.form['tuition_budget'] == "":
+            tuition_budget = 0
+        else: 
+            tuition_budget = int(request.form['tuition_budget'])
+        
+        if request.form['transportation_budget'] == "":
+            transportation_budget = 0
+        else: 
+            transportation_budget = int(request.form['transportation_budget'])
+        
+        if request.form['rent_budget'] == "":
+            rent_budget = 0
+        else: 
+            rent_budget = int(request.form['rent_budget'])
+        
+        if request.form['other_budget'] == "":
+            other_budget = 0
+        else: 
+            other_budget = int(request.form['other_budget'])
+
         # total_budget = (food_budget + clothing_budget + entertainment_budget)
         # food_percent = food_budget / total_budget
         # clothing_percent = clothing_budget / total_budget

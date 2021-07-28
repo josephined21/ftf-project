@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>view my budget</title>
+    <title>View My Budget</title>
     <link rel="stylesheet" href="../static/css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -13,50 +13,63 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img src="static/images/fmadeoutofleaves.jpg" alt="" height="35"
-                    class="d-inline-block align-text-top"> Financial Planter</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href='/your_info'>Take a Quiz</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/your_budget">View My Stats</a>
-                    </li>
-
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <a class="navbar-brand" href="#"><img src="static/images/fmadeoutofleaves.jpg" alt="" height="35"
+                            class="d-inline-block align-text-top"> Financial Planter</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href='/your_info'>Take a Quiz</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href='/about_us'>About Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/your_budget">View My Stats</a>
+                            </li>
+                        </ul>
                 </ul>
+                {% if session %}
+                <p>You are logged in as {{session['username']}} <a href="/logout">Logout</a> </p>
+                {% else %}
+                <form class="d-flex">
+                    <a class="nav-link" href="/login_button">Login</a>
+                    {% endif %}
+                </form>
             </div>
         </div>
     </nav>
-    <style>
+
+    <!-- <style>
         form {
             float: left;
             padding-top: 100px;
         }
-    </style>
+    </style> -->
 
     <form method="post" action="/your_budget">
         <label for="food">Food:</label>
-        <input type="number" name="food_budget" value=""><br>
+        <input type="number" name="food_budget" min="0" value="0"><br>
         <label for="clothing">Clothing:</label>
-        <input type="number" name="clothing_budget" value=""><br>
+        <input type="number" name="clothing_budget" min="0" value="0"><br>
         <label for="entertainment">Entertainment:</label>
-        <input type="number" name="entertainment_budget" value=""><br>
+        <input type="number" name="entertainment_budget" min="0" value=0""><br>
         <label for="tuition">Tuition:</label>
-        <input type="number" name="tuition_budget" value=""><br>
+        <input type="number" name="tuition_budget" min="0" value="0"><br>
         <label for="transportation">Transportation:</label>
-        <input type="number" name="transportation_budget" value=""><br>
+        <input type="number" name="transportation_budget" min="0" value="0"><br>
         <label for="rent">Rent:</label>
-        <input type="number" name="rent_budget" value=""><br>
+        <input type="number" name="rent_budget" min="0" value="0"><br>
         <label for="other">Other:</label>
-        <input type="number" name="other_budget" value=""><br>
+        <input type="number" name="other_budget" min="0" value="0"><br>
         <input type="submit" value="Submit">
     </form>
 
@@ -153,12 +166,13 @@
                 keys: ['name', 'y', 'selected', 'sliced'],
                 data: [
                     ['Food', {{ food_budget }}, false],
-                    ['Clothes', {{ clothing_budget }}, false],
-                    ['Entertainment', {{ entertainment_budget }}, false],
-                    ['Tuition', {{ tuition_budget }}, false],
-                    ['Transportation', {{ transportation_budget }}, false],
-                    ['Rent', {{ rent_budget }}, false],
-                    ['Other', {{ other_budget }}, false]
+            ['Clothes', {{ clothing_budget }
+        }, false],
+            ['Entertainment', {{ entertainment_budget }}, false],
+            ['Tuition', {{ tuition_budget }}, false],
+            ['Transportation', {{ transportation_budget }}, false],
+            ['Rent', {{ rent_budget }}, false],
+            ['Other', {{ other_budget }}, false]
                     ],
             showInLegend: true
         }]
