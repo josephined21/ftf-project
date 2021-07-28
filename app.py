@@ -119,15 +119,3 @@ def your_budget():
         # clothing_percent = clothing_budget / total_budget
         # entertainment_percent = entertainment_budget / total_budget
         return render_template('viewer_budget.html', food_budget = food_budget, clothing_budget = clothing_budget, entertainment_budget = entertainment_budget, tuition_budget = tuition_budget, transportation_budget = transportation_budget, rent_budget = rent_budget, other_budget = other_budget)
-
-        savings = ((pay_per_hour*hours_worked) - monthly_expenses)
-        if savings >= goal_amount:
-            return (f"Hello {name}, you reached your monthly savings goal of {goal_amount} with ${savings-goal_amount} to spare!")
-        else:
-            return "you did not reach your savings goal"
-
-@app.route('/your_stats')
-def your_stats():
-    return render_template('viewer_stats.html')
-    
-
