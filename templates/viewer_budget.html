@@ -21,6 +21,9 @@
           <a class="nav-link" href= '/your_info'>Take a Quiz</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href='/about_us'>About Us</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="/your_budget">View My Stats</a>
         </li>
         
@@ -37,19 +40,19 @@
          
         <form method="post" action="/your_budget">
             <label for="food">Food:</label>
-            <input type="number" name="food_budget" value=""><br>
+            <input type="number" name="food_budget" value="0" min="0"><br>
             <label for="Clothing"> Clothing</label>
-            <input type="number" name="clothing_budget" value=""><br>
+            <input type="number" name="clothing_budget" value="0" min="0"><br>
             <label for="Entertainment"> Entertainment </label>
-            <input type="number" name="entertainment_budget" value=""><br>
+            <input type="number" name="entertainment_budget" value="0" min="0"><br>
             <label for="tuition"> Tuition:</label>
-            <input type="number" name="tuition_budget" value=""><br>
+            <input type="number" name="tuition_budget" value="0"><br>
             <label for="Transportation"> Transportation</label>
-            <input type="number" name="transportation_budget" value=""><br>
+            <input type="number" name="transportation_budget" value="0" min="0"><br>
             <label for="rent"> Rent </label>
-            <input type="number" name="rent_budget" value=""><br>
+            <input type="number" name="rent_budget" value="0" min="0"><br>
             <label for="Other"> Other </label>
-            <input type="number" name="other_budget" value=""><br>
+            <input type="number" name="other_budget" value="0" min="0"><br>
             <input type="submit" value="Submit">
         </form> 
 </style>

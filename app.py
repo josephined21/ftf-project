@@ -24,7 +24,7 @@ def index():
     #return render_template('information1.html')
     return render_template('index.html')
 
-@app.route('/your_info', methods = ['GET','POST'])
+@app.route('/signups', methods = ['GET','POST'])
 def your_info():
     if request.method == 'GET':
        return render_template("information1.html")
@@ -55,13 +55,34 @@ def your_stats():
     if request.method == 'GET':
        return render_template('viewer_budget.html')
     else:
-        food_budget = int(request.form['food_budget'])
-        clothing_budget = int(request.form['clothing_budget'])
-        entertainment_budget = int(request.form['entertainment_budget'])
-        tuition_budget = int(request.form['tuition_budget'])
-        transportation_budget = int(request.form['transportation_budget'])
-        rent_budget = int(request.form['rent_budget'])
-        other_budget = int(request.form['other_budget'])
+        if request.form['food_budget'] == "":
+            food_budget = 0
+        else:
+            food_budget = int(request.form['food_budget'])
+        if request.form['clothing_budget'] == "":
+            clothing_budget = 0
+        else:
+            clothing_budget = int(request.form['clothing_budget'])
+        if request.form['entertainment_budget'] == "":
+            entertainment_budget = 0
+        else:
+            entertainment_budget = int(request.form['entertainment_budget'])
+        if request.form['tuition_budget'] == "":
+            tuition_budget = 0
+        else:
+            tuition_budget = int(request.form['tuition_budget'])
+        if request.form['transportation_budget'] == "":
+            transportation_budget = 0
+        else:
+            transportation_budget = int(request.form['transportation_budget'])
+        if request.form['rent_budget'] == "":
+            rent_budget = 0
+        else:
+            rent_budget = int(request.form['rent_budget'])
+        if request.form['other_budget'] == "":
+            other_budget = 0
+        else:
+            other_budget = int(request.form['other_budget'])
         #total_budget = (food_budget + clothing_budget + entertainment_budget)
         # food_percent = food_budget / total_budget
         # clothing_percent = clothing_budget / total_budget
@@ -106,3 +127,11 @@ def login():
 def logout():
     session.clear()
     return redirect('/')
+    
+@app.route('/login_button')
+def login_button():
+    return render_template ('login_copy.html')
+
+@app.route('/about_us')
+def about_us():
+   return render_template ('about_us.html')
