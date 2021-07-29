@@ -1,5 +1,5 @@
 <html>
-
+​
 <head>
     <title>View My Budget</title>
     <link rel="stylesheet" href="../static/css/style.css">
@@ -9,49 +9,38 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 </head>
-
+​
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <a class="navbar-brand" href="#"><img src="static/images/fmadeoutofleaves.jpg" alt="" height="35"
-                            class="d-inline-block align-text-top"> Financial Planter</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href='/your_info'>Take a Quiz</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href='/about_us'>About Us</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/your_budget">View My Stats</a>
-                            </li>
-                        </ul>
+            <a class="navbar-brand" href="#"><img src="static/images/fmadeoutofleaves.jpg" alt="" height="35"
+                    class="d-inline-block align-text-top"> Financial Planter</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href='/your_info'>Take a Quiz</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href='/about_us'>About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/your_budget">View My Stats</a>
+                    </li>
                 </ul>
-                {% if session %}
-                <p>You are logged in as {{session['username']}} <a href="/logout">Logout</a> </p>
-                {% else %}
-                <form class="d-flex">
-                    <a class="nav-link" href="/login_button">Login</a>
-                    {% endif %}
-                </form>
             </div>
         </div>
     </nav>
-
     <style>
         form {
             float: left;
-            padding-top: 100px;
+            padding-right: 150px;
         }
     </style>
     <div class=container>
@@ -91,8 +80,8 @@
                 </form>
             </div>
 
-            <div>
-                <div class='col'>
+            <div class='col'>
+                <div class='g-3'>
                     <script src="https://code.highcharts.com/highcharts.js"></script>
                     <script src="https://code.highcharts.com/modules/exporting.js"></script>
                     <script src="https://code.highcharts.com/modules/export-data.js"></script>
@@ -100,11 +89,11 @@
                     ​
                     <figure class="highcharts-figure">
                         <div id="container"></div>
-                        <p class="highcharts-description">
+                        <!-- <p class="highcharts-description">
                             Enter you total spending for food, clothing and entertainment to find out how much of your
                             budget each
                             one takes up.
-                        </p>
+                        </p> -->
                     </figure>
                 </div>
                 <style>
@@ -123,8 +112,8 @@
 
                     ​.highcharts-figure,
                     .highcharts-data-table table {
-                        min-width: 320px;
-                        max-width: 600px;
+                        min-width: 800px;
+                        max-width: 800px;
                         margin: 1em auto;
                     }
 
@@ -165,8 +154,8 @@
                     }
 
                     #highcharts-figure {
-                        float: right;​
-                    }                    
+                        float: center;
+                    }
                 </style>
                 <script>
                     Highcharts.chart('container', {
@@ -178,9 +167,9 @@
                             text: 'Your Monthly Expenditures!'
                         },
 
-                        // xAxis: {
-                        //     categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-                        // },
+                        xAxis: {
+                            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                        },
 
                         series: [{
                             type: 'pie',
@@ -202,6 +191,7 @@
             </div>
         </div>
     </div>
+     
 </body>
-
+​
 </html>

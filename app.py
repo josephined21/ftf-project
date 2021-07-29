@@ -133,6 +133,8 @@ def your_info():
 
         todays_date = date.today()
         todays_month = todays_date.month
+        todays_year = todays_date.year
+        year = str(todays_year)
 
         if todays_month == 1:
             month = 'january'
@@ -159,13 +161,34 @@ def your_info():
         elif todays_month == 12:
             month = 'december'
 
+        users = mongo.db.users
+        user = users.find_one({'name': session['username']})
+
+        if month in user[year]:
+            user[year][month]['goal amount'] = goal_amount
+            user[year][month]['monthly expenses'] = monthly_expenses
+            user[year][month]['pay per hour'] = pay_per_hour
+            user[year][month]['hours worked'] = hours_worked
+            user[year][month]['additional income'] = add_income
+            user[year][month]['additional expenses'] = add_expenses
+
+            myquery = {'name': session['username']}
+            newvalues = { "$set": { year: user[year] } }
+            users.update_one(myquery, newvalues)
+        else:
+            print("there")
+            user[year][month] = {'goal amount': goal_amount, 'monthly expenses': monthly_expenses, 'pay per hour': pay_per_hour, 'hours worked': hours_worked, 'additional income': add_income, 'additional expenses': add_expenses}
+            print(user[year])
+
+            myquery = {'name': session['username']}
+            newvalues = { "$set": { year: user[year] } }
+            users.update_one(myquery, newvalues)
+            
         if savings >= goal_amount:
             return render_template ('savings_goal.html', savings = savings, goal_amount = goal_amount, goal_percent = goal_percent)
-            # (f"Hello {name}, you reached your monthly savings goal of {goal_amount} with ${savings-goal_amount} to spare!")
         else:
             need_more = (goal_amount - savings)
             return render_template('need_more.html', savings = savings, goal_amount = goal_amount, goal_percent = goal_percent)
-            # (f"you did not reach your savings goal, you need {need_more} more dollars to reach your goal")
 
 @app.route('/your_budget',  methods = ['GET','POST'])
 def your_budget():
