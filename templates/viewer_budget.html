@@ -1,5 +1,6 @@
 <html>
 ​
+
 <head>
     <title>View My Budget</title>
     <link rel="stylesheet" href="../static/css/style.css">
@@ -10,6 +11,7 @@
         crossorigin="anonymous"></script>
 </head>
 ​
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
@@ -40,12 +42,13 @@
     <style>
         form {
             float: left;
-            padding-right: 150px;
+            padding-right: 0px;
+            
         }
     </style>
     <div class=container>
         <div class="row">
-            <div class="col">
+            <div class="col-2">
                 <form class="g-3" method="post" action="/your_budget">
                     <div>
                         <label for="food" class="form-label"> Food: </label>
@@ -57,19 +60,28 @@
                     </div><br>
                     <div>
                         <label for="entertainment" class="form-label">Entertainment: </label>
-                        <input type="number" class="form-control" name="entertainment_budget" required value="0" min="0">
+                        <input type="number" class="form-control" name="entertainment_budget" required value="0"
+                            min="0">
                     </div><br>
+            
                     <div>
-                        <label for="tuition" class="form-label">Tuition </label>
+                        <label for="tuition" class="form-label">Tuition: </label>
                         <input type="number" class="form-control" name="tuition_budget" required value="0" min="0">
                     </div><br>
+                    </div>
+            <div class="col-2">
                     <div>
                         <label for="Transportation" class="form-label">Transportation: </label>
-                        <input type="number" class="form-control" name="transportation_budget" required value="0" min="0">
+                        <input type="number" class="form-control" name="transportation_budget" required value="0"
+                            min="0">
                     </div><br>
                     <div>
                         <label for="rent" class="form-label">Rent: </label>
                         <input type="number" class="form-control" name="rent_budget" required value="0" min="0">
+                    </div><br>
+                    <div>
+                        <label for="essentials" class="form-label">Essentials: </label>
+                        <input type="number" class="form-control" name="essentials_budget" required value="0" min="0">
                     </div><br>
                     <div>
                         <label for="other" class="form-label">Other: </label>
@@ -182,16 +194,18 @@
                                 ['Tuition', {{ tuition_budget }}, false],
                                 ['Transportation', {{ transportation_budget }}, false],
                                 ['Rent', {{ rent_budget }}, false],
-                                ['Other', {{ other_budget }}, true, true],
+                                ['Essentials', {{ essentials_budget }}, false],
+                                ['Other', {{ other_budget }}, true, true]
                             ],
-                            showInLegend: true
+                        showInLegend: true
                         }]
                     });
                 </script>
             </div>
         </div>
     </div>
-     
+
 </body>
 ​
+
 </html>

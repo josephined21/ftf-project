@@ -105,22 +105,53 @@ def about_us():
 @app.route('/your_info', methods=['GET', 'POST'])
 def your_info():
     if request.method == 'GET':
-        # goal_amount = session['goal_amount']
-        # monthly_expenses = session['goal_amount']
-        # pay_per_hour = int(request.form['pay_per_hour'])
-        # hours_worked = int(request.form['hours_worked'])
-        # add_income = int(request.form['add_income'])
-        # add_expenses = int(request.form['add_expenses'])
-        # savings = ((pay_per_hour * hours_worked * 4) + add_income) - (monthly_expenses + add_expenses)
-        # goal_percent = (savings / goal_amount) * 100
+        users = mongo.db.users
+        user = users.find_one({'name': session['username']})
 
-        # if savings >= goal_amount:
-        #     return render_template ('savings_goal.html', savings = savings, goal_amount = goal_amount, goal_percent = goal_percent)
-        #  else:
-        #     need_more = (goal_amount - savings)
-        #     return  render_template('need_more.html', savings = savings, goal_amount = goal_amount, goal_percent = goal_percent)
+        todays_date = date.today()
+        todays_month = todays_date.month
+        todays_year = todays_date.year
+        year = str(todays_year)
 
-        return render_template("information1.html")
+        if todays_month == 1:
+            month = 'january'
+        elif todays_month == 2:
+            month = 'february'
+        elif todays_month == 3:
+            month = 'march'
+        elif todays_month == 4:
+            month = 'april'
+        elif todays_month == 5:
+            month = 'may'
+        elif todays_month == 6:
+            month = 'june'
+        elif todays_month == 7:
+            month = 'july'
+        elif todays_month == 8:
+            month = 'august'
+        elif todays_month == 9:
+            month = 'september'
+        elif todays_month == 10:
+            month = 'october'
+        elif todays_month == 11:
+            month = 'november'
+        elif todays_month == 12:
+            month = 'december'
+
+        goal_amount = int(user[year][month]['goal amount'])
+        monthly_expenses = int(user[year][month]['monthly expenses'])
+        pay_per_hour = int(user[year][month]['pay per hour'])
+        hours_worked = int(user[year][month]['hours worked'])
+        add_income = int(user[year][month]['additional income'])
+        add_expenses = int(user[year][month]['additional expenses'])
+        savings = ((pay_per_hour * hours_worked * 4) + add_income) - (monthly_expenses + add_expenses)
+        goal_percent = (savings / goal_amount) * 100
+
+        if savings >= goal_amount:
+            return render_template ('savings_goal.html', savings = savings, goal_amount = goal_amount, goal_percent = goal_percent)
+        else:
+            need_more = (goal_amount - savings)
+            return  render_template('need_more.html', savings = savings, goal_amount = goal_amount, goal_percent = goal_percent)
     else:
         goal_amount = int(request.form['goal_amount'])
         monthly_expenses = int(request.form['monthly_expenses'])
@@ -224,14 +255,15 @@ def your_budget():
             rent_budget = 0
         else: 
             rent_budget = int(request.form['rent_budget'])
+
+        if request.form['essentials_budget'] == "":
+            essentials_budget = 0
+        else: 
+            essentials_budget = int(request.form['essentials_budget'])
         
         if request.form['other_budget'] == "":
             other_budget = 0
         else: 
             other_budget = int(request.form['other_budget'])
-
-        # total_budget = (food_budget + clothing_budget + entertainment_budget)
-        # food_percent = food_budget / total_budget
-        # clothing_percent = clothing_budget / total_budget
-        # entertainment_percent = entertainment_budget / total_budget
-        return render_template('viewer_budget.html', food_budget = food_budget, clothing_budget = clothing_budget, entertainment_budget = entertainment_budget, tuition_budget = tuition_budget, transportation_budget = transportation_budget, rent_budget = rent_budget, other_budget = other_budget)
+        
+        return render_template('viewer_budget.html', food_budget = food_budget, clothing_budget = clothing_budget, entertainment_budget = entertainment_budget, tuition_budget = tuition_budget, transportation_budget = transportation_budget, rent_budget = rent_budget, essentials_budget = essentials_budget, other_budget = other_budget)
