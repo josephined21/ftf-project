@@ -1,154 +1,227 @@
 <html>
-    <head>
-        <title>view my budget</title>
-        <link rel="stylesheet" href="../static/css/style.css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>        
-    </head>
-    <body> 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-   <a class="navbar-brand" href="#"><img src="static/images/fmadeoutofleaves.jpeg" alt=""  height="35" class="d-inline-block align-text-top"> Financial Planter</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href= '/your_info'>Take a Quiz</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href='/about_us'>About Us</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/your_budget">View My Stats</a>
-        </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-        <style>
+
+<head>
+    <title>view my budget</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><img src="static/images/fmadeoutofleaves.jpeg" alt="" height="35"
+                    class="d-inline-block align-text-top"> Financial Planter</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href='/your_info'>Take a Quiz</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href='/about_us'>About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/your_budget">View My Stats</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <style>
         form {
             float: left;
-            padding-top: 100px;
-        }    
-    </style> 
-         
-        <form method="post" action="/your_budget">
-            <label for="food">Food:</label>
-            <input type="number" name="food_budget" value="0" min="0"><br>
-            <label for="Clothing"> Clothing</label>
+            padding-top: 1px;
+        }
+    </style>
+    <div class = container>
+    <div class = "row">
+    <div class = "col">
+       
+        <form class="g-3" method="post" action="/your_budget">
+            <div>
+                <label for="food" class="form-label"> Food: </label>
+                <input type="number" class="form-control" name="food_budget" required value="0" min="0">
+            </div> <br>
+            <div >
+                <label for="clothing" class="form-label">Clothing: </label>
+                <input type="number" class="form-control" name="clothing_budget" required value="0" min="0">
+            </div> <br>
+            <div>
+                <label for="entertainment" class="form-label">Entertainment: </label>
+                <input type="number" class="form-control" name="entertainment_budget" required value="0" min="0">
+            </div> <br>
+            <div>
+                <label for="tuition" class="form-label">Tuition </label>
+                <input type="number" class="form-control" name="tuition_budget" required value="0" min="0">
+            </div><br>
+            <div >
+                <label for="Transportation" class="form-label">Transportation: </label>
+                <input type="number" class="form-control" name="transportation_budget" required value="0" min="0">
+            </div><br>
+            <div>
+                <label for="rent" class="form-label">Rent: </label>
+                <input type="number" class="form-control" name="rent_budget" required value="0" min="0">
+            </div><br>
+            <div>
+                <label for="other" class="form-label">Other: </label>
+                <input type="number" class="form-control" name="other_budget" required value="0" min="0">
+            </div><br>
+            <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+            <input type="submit" value="Submit">
+        </form>
+        </div>
+    
+    <!-- <label for="food">Food:</label>
+            <input type="number" name="food_budget" value="0" min="0"><br> -->
+    <!-- <label for="Clothing"> Clothing</label>
             <input type="number" name="clothing_budget" value="0" min="0"><br>
             <label for="Entertainment"> Entertainment </label>
-            <input type="number" name="entertainment_budget" value="0" min="0"><br>
-            <label for="tuition"> Tuition:</label>
+            <input type="number" name="entertainment_budget" value="0" min="0"><br> -->
+    <!-- <label for="tuition"> Tuition:</label>
             <input type="number" name="tuition_budget" value="0"><br>
-            <label for="Transportation"> Transportation</label>
-            <input type="number" name="transportation_budget" value="0" min="0"><br>
-            <label for="rent"> Rent </label>
+            <label for="Transportation"> Transportation</label> -->
+    <!-- <input type="number" name="transportation_budget" value="0" min="0"><br> -->
+    <!-- <label for="rent"> Rent </label>
             <input type="number" name="rent_budget" value="0" min="0"><br>
             <label for="Other"> Other </label>
             <input type="number" name="other_budget" value="0" min="0"><br>
             <input type="submit" value="Submit">
-        </form> 
-</style>
-<div>
+        </form>  -->
+    </style>
+
+    <div class = 'col'>
+    <div class = 'g-3'>
         <script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
-<figure class="highcharts-figure">
-    <div id="container"></div>
-    <p class="highcharts-description">
-      Enter you total spending for food, clothing and entertainment to find out how much of your budget each one takes up.
-    </p>
-</figure>
-</div>
-<style>
-    @import 'https://code.highcharts.com/css/highcharts.css';
+        <figure class="highcharts-figure">
+            <div id="container"></div>
+            <!-- <p class="highcharts-description">
+                Enter you total spending for food, clothing and entertainment and others to find out how much of your budget each
+                one takes up.
+            </p> -->
+        </figure>
+    </div>
+    <style>
+        @import 'https://code.highcharts.com/css/highcharts.css';
 
-.highcharts-pie-series .highcharts-point {
-	stroke: #EDE;
-	stroke-width: 2px;
-}
-.highcharts-pie-series .highcharts-data-label-connector {
-	stroke: silver;
-	stroke-dasharray: 2, 2;
-	stroke-width: 2px;
-}
+        .highcharts-pie-series .highcharts-point {
+            stroke: #EDE;
+            stroke-width: 2px;
+        }
 
-.highcharts-figure, .highcharts-data-table table {
-    min-width: 320px; 
-    max-width: 600px;
-    margin: 1em auto;
-}
+        .highcharts-pie-series .highcharts-data-label-connector {
+            stroke: silver;
+            stroke-dasharray: 2, 2;
+            stroke-width: 2px;
+        }
 
-.highcharts-data-table table {
-	font-family: Verdana, sans-serif;
-	border-collapse: collapse;
-	border: 1px solid #EBEBEB;
-	margin: 10px auto;
-	text-align: center;
-	width: 100%;
-	max-width: 500px;
-}
-.highcharts-data-table caption {
-    padding: 1em 0;
-    font-size: 1.2em;
-    color: #555;
-}
-.highcharts-data-table th {
-	font-weight: 600;
-    padding: 0.5em;
-}
-.highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
-    padding: 0.5em;
-}
-.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
-    background: #f8f8f8;
-}
-.highcharts-data-table tr:hover {
-    background: #f1f7ff;
-}
+        .highcharts-figure,
+        .highcharts-data-table table {
+            min-width: 800px;
+            max-width: 800px;
+            margin: 1em auto;
+        }
 
-</style>
-<script>
-Highcharts.chart('container', {
+        .highcharts-data-table table {
+            font-family: Verdana, sans-serif;
+            border-collapse: collapse;
+            border: 1px solid #EBEBEB;
+            margin: 10px auto;
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
 
-    chart: {
-        styledMode: true
-    },
+        .highcharts-data-table caption {
+            padding: 1em 0;
+            font-size: 1.2em;
+            color: #555;
+        }
 
-    title: {
-        text: 'Your Monthly Expenditures!'
-    },
+        .highcharts-data-table th {
+            font-weight: 600;
+            padding: 0.5em;
+        }
 
-    xAxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    },
+        .highcharts-data-table td,
+        .highcharts-data-table th,
+        .highcharts-data-table caption {
+            padding: 0.5em;
+        }
 
-    series: [{
-        type: 'pie',
-        allowPointSelect: true,
-        keys: ['name', 'y', 'selected', 'sliced'],
-        data: [
-            ['Food', {{food_budget}}, false],
-            ['Clothes', {{clothing_budget}}, false],
-            ['Entertainment', {{entertainment_budget}}, false],
-            ['Tuition', {{tuition_budget}}, false],
-            ['Transportation', {{transportation_budget}}, false],
-            ['Rent', {{rent_budget}}, false],
-            ['Other', {{other_budget}}, true, true],
+        .highcharts-data-table thead tr,
+        .highcharts-data-table tr:nth-child(even) {
+            background: #f8f8f8;
+        }
+
+        .highcharts-data-table tr:hover {
+            background: #f1f7ff;
+
+        } 
+        #highcharts-figure {
+            float: center;
+        
+
+        }
+        /* #highcharts-figure { 
+            position: relative; top: 1px; 
+        } */
+        
+
+        
+        
+    </style>
+    <script>
+        Highcharts.chart('container', {
+
+            chart: {
+                styledMode: true
+            },
+
+            title: {
+                text: 'Your Monthly Expenditures!'
+            },
+
+            xAxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            },
+
+            series: [{
+                type: 'pie',
+                allowPointSelect: true,
+                keys: ['name', 'y', 'selected', 'sliced'],
+                data: [
+                    ['Food', {{ food_budget }}, false],
+            ['Clothes', {{ clothing_budget }}, false],
+            ['Entertainment', {{ entertainment_budget }}, false],
+            ['Tuition', {{ tuition_budget }}, false],
+            ['Transportation', {{ transportation_budget }}, false],
+            ['Rent', {{ rent_budget }}, false],
+            ['Other', {{ other_budget }}, true, true],
             // ['Avocados', 148.5, false]
         ],
-        showInLegend: true
+            showInLegend: true
     }]
-});    
-</script>
-    </body>
+});   
+ 
+    </script>
+    </div>
+    
+        
+</body>
+
 </html>
