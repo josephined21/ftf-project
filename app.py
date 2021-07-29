@@ -104,56 +104,55 @@ def about_us():
 
 @app.route('/your_info', methods=['GET', 'POST'])
 def your_info():
+    todays_date = date.today()
+    todays_month = todays_date.month
+    todays_year = todays_date.year
+    year = str(todays_year)
+
+    if todays_month == 1:
+        month = 'january'
+    elif todays_month == 2:
+        month = 'february'
+    elif todays_month == 3:
+        month = 'march'
+    elif todays_month == 4:
+        month = 'april'
+    elif todays_month == 5:
+        month = 'may'
+    elif todays_month == 6:
+        month = 'june'
+    elif todays_month == 7:
+        month = 'july'
+    elif todays_month == 8:
+        month = 'august'
+    elif todays_month == 9:
+        month = 'september'
+    elif todays_month == 10:
+        month = 'october'
+    elif todays_month == 11:
+        month = 'november'
+    elif todays_month == 12:
+        month = 'december'
+
+    users = mongo.db.users
+    user = users.find_one({'username': session['username']})
+
     if request.method == 'GET':
-        todays_date = date.today()
-        todays_month = todays_date.month
-        todays_year = todays_date.year
-        year = str(todays_year)
-
-        if todays_month == 1:
-            month = 'january'
-        elif todays_month == 2:
-            month = 'february'
-        elif todays_month == 3:
-            month = 'march'
-        elif todays_month == 4:
-            month = 'april'
-        elif todays_month == 5:
-            month = 'may'
-        elif todays_month == 6:
-            month = 'june'
-        elif todays_month == 7:
-            month = 'july'
-        elif todays_month == 8:
-            month = 'august'
-        elif todays_month == 9:
-            month = 'september'
-        elif todays_month == 10:
-            month = 'october'
-        elif todays_month == 11:
-            month = 'november'
-        elif todays_month == 12:
-            month = 'december'
-
-        users = mongo.db.users
-        user = users.find_one({'username': session['username']})
-        print(user)
-
-        goal_amount = user[year][month]['goal amount']
-        monthly_expenses = user[year][month]['monthly expenses']
-        pay_per_hour = user[year][month]['pay per hour']
-        hours_worked = user[year][month]['hours worked']
-        add_income = user[year][month]['additional income']
-        add_expenses = user[year][month]['additional expenses']
+        goal_amount = int(user[year][month]['goal amount'])
+        monthly_expenses = int(user[year][month]['monthly expenses'])
+        pay_per_hour = int(user[year][month]['pay per hour'])
+        hours_worked = int(user[year][month]['hours worked'])
+        add_income = int(user[year][month]['additional income'])
+        add_expenses = int(user[year][month]['additional expenses'])
 
         savings = ((pay_per_hour * hours_worked * 4) + add_income) - (monthly_expenses + add_expenses)
         goal_percent = (savings / goal_amount) * 100
 
         if savings >= goal_amount:
-            return render_template ('savings_goal.html', savings = savings, goal_amount = goal_amount, goal_percent = goal_percent)
+            return render_template('savings_goal.html', savings = savings, goal_amount = goal_amount, goal_percent = goal_percent, month = month.upper())
         else:
             need_more = (goal_amount - savings)
-            return  render_template('need_more.html', savings = savings, goal_amount = goal_amount, goal_percent = goal_percent)
+            return  render_template('need_more.html', savings = savings, goal_amount = goal_amount, goal_percent = goal_percent, month = month.upper())
     else:
         goal_amount = int(request.form['goal_amount'])
         monthly_expenses = int(request.form['monthly_expenses'])
@@ -163,39 +162,6 @@ def your_info():
         add_expenses = int(request.form['add_expenses'])
         savings = ((pay_per_hour * hours_worked * 4) + add_income) - (monthly_expenses + add_expenses)
         goal_percent = (savings / goal_amount) * 100
-
-        todays_date = date.today()
-        todays_month = todays_date.month
-        todays_year = todays_date.year
-        year = str(todays_year)
-
-        if todays_month == 1:
-            month = 'january'
-        elif todays_month == 2:
-            month = 'february'
-        elif todays_month == 3:
-            month = 'march'
-        elif todays_month == 4:
-            month = 'april'
-        elif todays_month == 5:
-            month = 'may'
-        elif todays_month == 6:
-            month = 'june'
-        elif todays_month == 7:
-            month = 'july'
-        elif todays_month == 8:
-            month = 'august'
-        elif todays_month == 9:
-            month = 'september'
-        elif todays_month == 10:
-            month = 'october'
-        elif todays_month == 11:
-            month = 'november'
-        elif todays_month == 12:
-            month = 'december'
-
-        users = mongo.db.users
-        user = users.find_one({'name': session['username']})
 
         if month in user[year]:
             user[year][month]['goal amount'] = goal_amount
@@ -209,19 +175,17 @@ def your_info():
             newvalues = { "$set": { year: user[year] } }
             users.update_one(myquery, newvalues)
         else:
-            print("there")
             user[year][month] = {'goal amount': goal_amount, 'monthly expenses': monthly_expenses, 'pay per hour': pay_per_hour, 'hours worked': hours_worked, 'additional income': add_income, 'additional expenses': add_expenses}
-            print(user[year])
 
             myquery = {'name': session['username']}
             newvalues = { "$set": { year: user[year] } }
             users.update_one(myquery, newvalues)
             
         if savings >= goal_amount:
-            return render_template ('savings_goal.html', savings = savings, goal_amount = goal_amount, goal_percent = goal_percent)
+            return render_template('savings_goal.html', savings = savings, goal_amount = goal_amount, goal_percent = goal_percent, month = month.upper())
         else:
             need_more = (goal_amount - savings)
-            return render_template('need_more.html', savings = savings, goal_amount = goal_amount, goal_percent = goal_percent)
+            return render_template('need_more.html', savings = savings, goal_amount = goal_amount, goal_percent = goal_percent, month = month.upper())
 
 @app.route('/your_budget',  methods = ['GET','POST'])
 def your_budget():

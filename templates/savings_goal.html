@@ -49,6 +49,7 @@
         </div>
     </nav>
     <br>
+    <h1 style="text-align: center;">{{month}}</h1>
     <p style="text-align: center;">You reached your savings goal of ${{goal_amount}}. You even have
         ${{savings - goal_amount}} to spare!</p>
     <div class="container">
@@ -59,38 +60,34 @@
         </div>
     </div>
     </div>
-    <br>
+    <br><br><br>
     <h3 style="text-align: center;">Update Your Monthly Information</h3>
     <form class="row g-3" method="post" action="/your_info">
         <div class="col-4"></div>
         <div class="col-4">
             <div class="col-12">
-                <label for="date" class="form-label">Date: </label>
-                <input type="date" class="form-control" name="date">
-            </div><br>
-            <div class="col-12">
                 <label for="goal_amount" class="form-label">Goal Amount At End of Month: </label>
-                <input type="number" class="form-control" name="goal_amount">
+                <input type="number" class="form-control" name="goal_amount" min="0" value="0" required>
             </div><br>
             <div class="col-12">
                 <label for="monthly_expenses" class="form-label">Monthly Expenses: </label>
-                <input type="number" class="form-control" name="monthly_expenses">
+                <input type="number" class="form-control" name="monthly_expenses" min="0" value="0" required>
             </div><br>
             <div class="col-12">
                 <label for="pay_per_hour" class="form-label">Pay Per Hour: </label>
-                <input type="number" class="form-control" name="pay_per_hour" placeholder="$15">
+                <input type="number" class="form-control" name="pay_per_hour" min="0" value="15" required>
             </div><br>
             <div class="col-12">
                 <label for="hours_worked" class="form-label">Hours Worked (Per Week): </label>
-                <input type="number" class="form-control" name="hours_worked">
+                <input type="number" class="form-control" name="hours_worked" min="0" value="0" required>
             </div><br>
             <div class="col-12">
                 <label for="add_income" class="form-label">Any Additional Income: </label>
-                <input type="number" class="form-control" name="add_income">
+                <input type="number" class="form-control" name="add_income" min="0" value="0" required>
             </div><br>
             <div class="col-12">
                 <label for="add_expenses" class="form-label">Any Additional Expenses: </label>
-                <input type="number" class="form-control" name="add_expenses">
+                <input type="number" class="form-control" name="add_expenses" min="0" value="0" required>
             </div><br>
             <div class="col-12">
                 <button type="submit" class="btn btn-primary">Submit</button>
