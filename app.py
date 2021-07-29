@@ -7,6 +7,8 @@ from flask_pymongo import PyMongo
 from flask import redirect
 from flask import session, url_for
 
+from datetime import date
+
 # -- Initialization section --
 app = Flask(__name__)
 app.secret_key = '_5#y2L"F4Q8z\n\xec]/'
@@ -21,21 +23,51 @@ mongo = PyMongo(app)
 def index():
     return render_template('index.html')
 
-@app.route('/signup', methods = ['GET','POST'])
+@app.route('/signup', methods=['GET', 'POST'])
 def signup():
     # Are they posting with the form?
     if request.method == 'POST':
         # Connect to database
         users = mongo.db.users
         # Do something with the database - Does anyone have this name?
-        existing_user = users.find_one({'name': request.form['username']})
+        existing_user = users.find_one({'name': request.form['user_name']})
 
         # Does user not exist? Add to the database!
         if existing_user is None:
             # Add the user to the database
-            users.insert({'name': request.form['username'], 'password': request.form['password']})
+            todays_date = date.today()
+            todays_month = todays_date.month
+            todays_year = todays_date.year
+
+            if todays_month == 1:
+                month = 'january'
+            elif todays_month == 2:
+                month = 'february'
+            elif todays_month == 3:
+                month = 'march'
+            elif todays_month == 4:
+                month = 'april'
+            elif todays_month == 5:
+                month = 'may'
+            elif todays_month == 6:
+                month = 'june'
+            elif todays_month == 7:
+                month = 'july'
+            elif todays_month == 8:
+                month = 'august'
+            elif todays_month == 9:
+                month = 'september'
+            elif todays_month == 10:
+                month = 'october'
+            elif todays_month == 11:
+                month = 'november'
+            elif todays_month == 12:
+                month = 'december'
+
+            users.insert({'name': request.form['user_name'], 'username': request.form['username'], 'password': request.form['password'], str(todays_year) : {month: {'goal amount': request.form['goal_amount'], 'monthly expenses': request.form['monthly_expenses'],
+                         'pay per hour': request.form['pay_per_hour'], 'hours worked': request.form['hours_worked'], 'additional income': request.form['add_income'], 'additional expenses': request.form['add_expenses']}}})
             # Make a session for the user
-            session['username'] = request.form['username']
+            session['username'] = request.form['user_name']
             return render_template('index.html')
         return 'The username already exists'
     return render_template('signups.html')
@@ -45,7 +77,7 @@ def login():
     # Connect to the database
     users = mongo.db.users
     # Get the login for the user!
-    login_user = users.find_one({'name': request.form['username']})
+    login_user = users.find_one({'username': request.form['username']})
     # Check that the password matches
     if login_user:
         # Check does the password they put in match the password in the database
@@ -64,37 +96,76 @@ def logout():
 
 @app.route('/login_button')
 def login_button():
-    return render_template ('login_copy.html')
+    return render_template('login_copy.html')
 
 @app.route('/about_us')
 def about_us():
-   return render_template ('about_us.html')
+   return render_template('about_us.html')
 
-@app.route('/your_info', methods = ['GET','POST'])
+@app.route('/your_info', methods=['GET', 'POST'])
 def your_info():
     if request.method == 'GET':
-       return render_template("information1.html")
+        # goal_amount = session['goal_amount']
+        # monthly_expenses = session['goal_amount']
+        # pay_per_hour = int(request.form['pay_per_hour'])
+        # hours_worked = int(request.form['hours_worked'])
+        # add_income = int(request.form['add_income'])
+        # add_expenses = int(request.form['add_expenses'])
+        # savings = ((pay_per_hour * hours_worked * 4) + add_income) - (monthly_expenses + add_expenses)
+        # goal_percent = (savings / goal_amount) * 100
+
+        # if savings >= goal_amount:
+        #     return render_template ('savings_goal.html', savings = savings, goal_amount = goal_amount, goal_percent = goal_percent)
+        #  else:
+        #     need_more = (goal_amount - savings)
+        #     return  render_template('need_more.html', savings = savings, goal_amount = goal_amount, goal_percent = goal_percent)
+
+        return render_template("information1.html")
     else:
-        #name = request.form['user_name']
-        #date = request.form['date']
         goal_amount = int(request.form['goal_amount'])
         monthly_expenses = int(request.form['monthly_expenses'])
         pay_per_hour = int(request.form['pay_per_hour'])
         hours_worked = int(request.form['hours_worked'])
         add_income = int(request.form['add_income'])
         add_expenses = int(request.form['add_expenses'])
-        savings = ((((pay_per_hour*hours_worked)*4) + add_income) - (monthly_expenses + add_expenses))
+        savings = ((pay_per_hour * hours_worked * 4) + add_income) - (monthly_expenses + add_expenses)
         goal_percent = (savings / goal_amount) * 100
 
-        # goal_percent = str(goal_percent)
-        # print(goal_percent)        
+        todays_date = date.today()
+        todays_month = todays_date.month
+
+        if todays_month == 1:
+            month = 'january'
+        elif todays_month == 2:
+            month = 'february'
+        elif todays_month == 3:
+            month = 'march'
+        elif todays_month == 4:
+            month = 'april'
+        elif todays_month == 5:
+            month = 'may'
+        elif todays_month == 6:
+            month = 'june'
+        elif todays_month == 7:
+            month = 'july'
+        elif todays_month == 8:
+            month = 'august'
+        elif todays_month == 9:
+            month = 'september'
+        elif todays_month == 10:
+            month = 'october'
+        elif todays_month == 11:
+            month = 'november'
+        elif todays_month == 12:
+            month = 'december'
+
         if savings >= goal_amount:
             return render_template ('savings_goal.html', savings = savings, goal_amount = goal_amount, goal_percent = goal_percent)
-            #(f"Hello {name}, you reached your monthly savings goal of {goal_amount} with ${savings-goal_amount} to spare!")
+            # (f"Hello {name}, you reached your monthly savings goal of {goal_amount} with ${savings-goal_amount} to spare!")
         else:
             need_more = (goal_amount - savings)
-            return  render_template('need_more.html', savings = savings, goal_amount = goal_amount, goal_percent = goal_percent)
-            #(f"you did not reach your savings goal, you need {need_more} more dollars to reach your goal")
+            return render_template('need_more.html', savings = savings, goal_amount = goal_amount, goal_percent = goal_percent)
+            # (f"you did not reach your savings goal, you need {need_more} more dollars to reach your goal")
 
 @app.route('/your_budget',  methods = ['GET','POST'])
 def your_budget():
@@ -105,10 +176,10 @@ def your_budget():
             food_budget = 0
         else: 
             food_budget = int(request.form['food_budget'])
-
+        
         if request.form['clothing_budget'] == "":
             clothing_budget = 0
-        else: 
+        else:
             clothing_budget = int(request.form['clothing_budget'])
 
         if request.form['entertainment_budget'] == "":
