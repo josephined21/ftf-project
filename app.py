@@ -105,9 +105,6 @@ def about_us():
 @app.route('/your_info', methods=['GET', 'POST'])
 def your_info():
     if request.method == 'GET':
-        users = mongo.db.users
-        user = users.find_one({'name': session['username']})
-
         todays_date = date.today()
         todays_month = todays_date.month
         todays_year = todays_date.year
@@ -138,12 +135,17 @@ def your_info():
         elif todays_month == 12:
             month = 'december'
 
-        goal_amount = int(user[year][month]['goal amount'])
-        monthly_expenses = int(user[year][month]['monthly expenses'])
-        pay_per_hour = int(user[year][month]['pay per hour'])
-        hours_worked = int(user[year][month]['hours worked'])
-        add_income = int(user[year][month]['additional income'])
-        add_expenses = int(user[year][month]['additional expenses'])
+        users = mongo.db.users
+        user = users.find_one({'username': session['username']})
+        print(user)
+
+        goal_amount = user[year][month]['goal amount']
+        monthly_expenses = user[year][month]['monthly expenses']
+        pay_per_hour = user[year][month]['pay per hour']
+        hours_worked = user[year][month]['hours worked']
+        add_income = user[year][month]['additional income']
+        add_expenses = user[year][month]['additional expenses']
+
         savings = ((pay_per_hour * hours_worked * 4) + add_income) - (monthly_expenses + add_expenses)
         goal_percent = (savings / goal_amount) * 100
 
