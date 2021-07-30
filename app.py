@@ -64,8 +64,9 @@ def signup():
                 month = 'november'
             elif todays_month == 12:
                 month = 'december'
+            hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
 
-            users.insert({'name': request.form['user_name'], 'username': request.form['username'], 'password': request.form['password'], str(todays_year) : {month: {'goal amount': request.form['goal_amount'], 'monthly expenses': request.form['monthly_expenses'],
+            users.insert({'name': request.form['user_name'], 'username': request.form['username'], 'password': str(hashpass,'utf-8'), str(todays_year) : {month: {'goal amount': request.form['goal_amount'], 'monthly expenses': request.form['monthly_expenses'],
                          'pay per hour': request.form['pay_per_hour'], 'hours worked': request.form['hours_worked'], 'additional income': request.form['add_income'], 'additional expenses': request.form['add_expenses']}}})
             # Make a session for the user
             session['username'] = request.form['user_name']
@@ -82,7 +83,8 @@ def login():
     # Check that the password matches
     if login_user:
         # Check does the password they put in match the password in the database
-        if request.form['password'] == login_user['password']:
+        # if request.form['password'] == login_user['password']:
+        if bcrypt.hashpw((request.form['password']).encode('utf-8'), login_user['password'].encode('utf-8')) == login_user['password'].encode('utf-8'):
             # start a session
             session['username'] = request.form['username']
             return render_template('index.html')
