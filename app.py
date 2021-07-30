@@ -6,6 +6,7 @@ from flask import request
 from flask_pymongo import PyMongo
 from flask import redirect
 from flask import session, url_for
+import bcrypt 
 
 from datetime import date
 
